@@ -73,6 +73,19 @@ module.exports = function(grunt ){
             }
         },
 
+        //Minificar Imagens
+        imagemin: {
+            dist: {
+                options: {
+                    optimizationLevel: 3
+                },
+                files: {
+                    '<%= yeoman.app %>/assets/images/test.png': '<%= yeoman.dist %>/assets/images/test.png',
+                    '<%= yeoman.app %>/assets/images/test.jpg': '<%= yeoman.dist %>/assets/images/test.jpg'
+                }
+            }
+        },
+
         //Watch
         watch: {
             options: {
@@ -96,6 +109,7 @@ module.exports = function(grunt ){
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-compass');
+    grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-watch');
  
     //Tarefas que serão Executadas
@@ -103,7 +117,8 @@ module.exports = function(grunt ){
         [
             'uglify',
             'htmlmin',
-            'compass'
+            'compass',
+            'imagemin'
         ]
     );
     grunt.registerTask('w', ['watch']);
