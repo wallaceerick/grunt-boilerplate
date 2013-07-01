@@ -17,19 +17,19 @@ You need to have [Node.js](http://nodejs.org/) and [NPM](https://npmjs.org/) ins
 
 - Clone the Grunt Boilerplate
 
-```
+```bash
 $ git clone https://github.com/wallaceerick/grunt-boilerplate.git
 ```
 
 - Enter in the folder
 
-```
+```bash
 $ cd grunt-boilerplate
 ```
 
 - Install Dependences
 
-```
+```bash
 $ npm install
 ```
 
@@ -37,7 +37,7 @@ $ npm install
 
 #### Uglify
 
-```
+```bash
 uglify: {
 	options: {
 		mangle: false
@@ -59,7 +59,7 @@ uglify: {
 
 #### Compass
 
-```
+```bash
 compass: {
 	dist: {
 		options: {
@@ -74,7 +74,7 @@ compass: {
 
 #### HTML Min
 
-```
+```bash
 htmlmin: {
 	dist: {
 		options: {
@@ -90,7 +90,7 @@ htmlmin: {
 
 #### Image Min
 
-```
+```bash
 imagemin: {
             dist: {
                 options: {
@@ -106,7 +106,7 @@ imagemin: {
 
 #### Watch
 
-```
+```bash
 watch: {
 	dist: {
 		files : [
@@ -118,8 +118,8 @@ watch: {
 }
 ```
 
-To watching files 
+- To watching files 
 
-```
-$ npm install
+```bash
+$ grunt w
 ```
