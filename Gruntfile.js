@@ -68,7 +68,7 @@ module.exports = function(grunt ){
                     javascriptsDir:  '<%= yeoman.app %>/assets/js',
                     outputStyle:     'expanded', //compressed
                     environment:     'development', //production
-                    relativeAssets: true
+                    relativeAssets:  true
                 }
             }
         },
@@ -79,10 +79,12 @@ module.exports = function(grunt ){
                 options: {
                     optimizationLevel: 3
                 },
-                files: {
-                    '<%= yeoman.app %>/assets/images/test.png': '<%= yeoman.dist %>/assets/images/test.png',
-                    '<%= yeoman.app %>/assets/images/test.jpg': '<%= yeoman.dist %>/assets/images/test.jpg'
-                }
+                files: [{
+                    expand: true,      
+                    cwd:  '<%= yeoman.dist %>/',
+                    dest: '<%= yeoman.app %>/',
+                    src: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif']
+                }],
             }
         },
 
@@ -93,15 +95,32 @@ module.exports = function(grunt ){
             },
             dist: {
                 files: [
-                '<%= yeoman.dist %>/assets/css/**/*.scss',
-                '<%= yeoman.dist %>/assets/js/*',
-                '<%= yeoman.dist %>/*'
+                    '<%= yeoman.dist %>/assets/css/**/*.scss',
+                    '<%= yeoman.dist %>/assets/js/*',
+                    '<%= yeoman.dist %>/*'
                 ],
                 tasks: ['uglify', 'htmlmin', 'compass']
             }
+        },
+
+        //Deploy  
+        /*
+        deploy: {
+            liveservers: {
+                options:{
+                    servers: [{
+                        host: 'ftp.wallaceerick.com.br',
+                        port: 22, 
+                        username: 'walla148',
+                        password: 'h7Ydf08E6e'
+                    }],
+                    cmds_before_deploy: ["some cmds you may want to exec before deploy"],
+                    cmds_after_deploy: ["forever restart", "some other cmds you want to exec after deploy"],
+                    deploy_path: '/home/walla148/public_html/testes/grunt-boilerplate'
+                }
+            }
         }
-
-
+        */
 
     });
  
@@ -111,7 +130,8 @@ module.exports = function(grunt ){
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-watch');
- 
+    //grunt.loadNpmTasks('grunt-deploy');
+
     //Tarefas que serão Executadas
     grunt.registerTask('default', 
         [
@@ -122,6 +142,7 @@ module.exports = function(grunt ){
         ]
     );
     grunt.registerTask('w', ['watch']);
+    //grunt.registerTask('d', ['deploy']);
     
 };
 
