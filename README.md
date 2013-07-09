@@ -42,16 +42,35 @@ uglify: {
 	options: {
 		mangle: false
 	},
-	scripts: {
+	//Create a File
+	one: {
 		files: {
-			//Arquivo de Destino
-			'<%= yeoman.app %>/assets/js/application.js': [
-				//Arquivos Inclusos
-				'<%= yeoman.dist %>/assets/js/_add.js', 
-				'<%= yeoman.dist %>/assets/js/_divide.js', 
-				'<%= yeoman.dist %>/assets/js/_multiply.js',
-				'<%= yeoman.dist %>/assets/js/_subtract.js'
+			//Generated File
+			'<%= yeoman.app %>/assets/js/one-and-two.js': [
+				//Files Included
+				'<%= yeoman.dist %>/assets/js/_one.js', 
+				'<%= yeoman.dist %>/assets/js/_two.js'
 			]
+		},
+		options: {
+			//Banner to File
+			banner: '/*\n***********************\nFile Name: One\nLast Update: <%= grunt.template.today("dd-mm-yyyy") %>\n***********************\n*/\n'
+		}
+	},
+    
+    //Create another File
+	two: {
+		files: {
+			//Generated File
+			'<%= yeoman.app %>/assets/js/three-and-four.js': [
+				//Files Included
+				'<%= yeoman.dist %>/assets/js/_three.js', 
+				'<%= yeoman.dist %>/assets/js/_four.js'
+			]
+		},
+		options: {
+			//Banner to File
+			banner: '/*\n***********************\nFile Name: Two\nLast Update: <%= grunt.template.today("dd-mm-yyyy") %>\n***********************\n*/\n'
 		}
 	}
 }
