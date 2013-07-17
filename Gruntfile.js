@@ -3,7 +3,7 @@ module.exports = function(grunt){
     //Configuração
     grunt.initConfig({
 
-        //Variáveis
+        //Pastas
         yeoman: {
             app: 'build',
             dist: 'source'
@@ -114,13 +114,9 @@ module.exports = function(grunt){
                 src: '<%= yeoman.app %>',
                 dest: '/public_html/testes/grunt-boilerplate/',
                 exclusions: [
+                            '<%= yeoman.dist %>/',
                             '<%= yeoman.app %>/**/.DS_Store',
-                            '<%= yeoman.app %>/**/Thumbs.db',
-                            '.git',
-                            '.gitignore',
-                            '.ftppass',
-                            '<%= yeoman.dist %>',
-                            'node_modules/'
+                            '<%= yeoman.app %>/**/Thumbs.db'
                             ]
             }
         }
