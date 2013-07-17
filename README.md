@@ -10,6 +10,7 @@ My personal tool to start projects with Grunt.
 - [HTML Min] (https://npmjs.org/package/grunt-contrib-htmlmin)
 - [Image Min] (https://npmjs.org/package/grunt-contrib-imagemin)
 - [Watch] (https://npmjs.org/package/grunt-contrib-watch)
+- [FTP Deploy] (https://github.com/zonak/grunt-ftp-deploy)
 
 ## Getting Started
 
@@ -140,5 +141,43 @@ watch: {
 - To watching files 
 
 ```bash
-$ grunt w
+$ grunt watch
+```
+
+
+#### FTP Deploy
+
+```bash
+'ftp-deploy': {
+	build: {
+		auth: {
+			host: 'ftp.server.com',
+			port: 21,
+			authKey: 'key1'
+		},
+		src: '<%= yeoman.app %>',
+		dest: '/public_html/testes/grunt-boilerplate/',
+		exclusions: [
+			'<%= yeoman.dist %>/',
+			'<%= yeoman.app %>/**/.DS_Store',
+			'<%= yeoman.app %>/**/Thumbs.db'
+		]
+	}
+}
+```
+
+- To make deploy 
+
+```bash
+$ grunt deploy
+```
+
+- Save this JSON as '.ftppass' at the root
+```bash
+{
+	"key1": {
+		"username": "your-username",
+		"password": "your-password"
+	}
+}
 ```
