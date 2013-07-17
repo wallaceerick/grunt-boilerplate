@@ -1,4 +1,4 @@
-module.exports = function(grunt ){
+module.exports = function(grunt){
 
     //Configuração
     grunt.initConfig({
@@ -112,10 +112,10 @@ module.exports = function(grunt ){
                     authKey: 'key1'
                 },
                 src: '<%= yeoman.app %>',
-                dest: '/home/walla148/public_html/testes/grunt-boilerplate/',
+                dest: '/public_html/testes/grunt-boilerplate/',
                 exclusions: [
-                            '/**/.DS_Store',
-                            '/**/Thumbs.db',
+                            '<%= yeoman.app %>/**/.DS_Store',
+                            '<%= yeoman.app %>/**/Thumbs.db',
                             '.git',
                             '.gitignore',
                             '.ftppass',
@@ -144,8 +144,8 @@ module.exports = function(grunt ){
             'imagemin'
         ]
     );
-    grunt.registerTask('w', ['watch']);
-    grunt.registerTask('d', ['ftp-deploy']);
+    grunt.registerTask('watch', ['watch']);
+    grunt.registerTask('deploy', ['ftp-deploy']);
     
 };
 

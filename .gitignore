@@ -1,5 +1,6 @@
 .DS_Store
 .git
 .sass-cache
+.ftppass
 build/
 node_modules/
