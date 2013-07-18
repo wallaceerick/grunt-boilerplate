@@ -5,6 +5,7 @@ module.exports = function(grunt){
 
         //Pastas
         yeoman: {
+            app: 'build',
             dist: 'source'
         },
 
@@ -17,7 +18,7 @@ module.exports = function(grunt){
             one: {
                 files: {
                     //Arquivo de Destino
-                    '<%= yeoman.dist %>/assets/js/application.js': [
+                    '<%= yeoman.app %>/assets/js/one-and-two.js': [
                         //Arquivos Inclusos
                         '<%= yeoman.dist %>/assets/js/_one.js', 
                         '<%= yeoman.dist %>/assets/js/_two.js'
@@ -25,6 +26,33 @@ module.exports = function(grunt){
                 },
                 options: {
                     banner: '/*\n***********************\nFile Name: One\nLast Update: <%= grunt.template.today("dd-mm-yyyy") %>\n***********************\n*/\n'
+                }
+            },
+            //Cria outro Arquivo
+            two: {
+                files: {
+                    //Arquivo de Destino
+                    '<%= yeoman.app %>/assets/js/three-and-four.js': [
+                        //Arquivos Inclusos
+                        '<%= yeoman.dist %>/assets/js/_three.js', 
+                        '<%= yeoman.dist %>/assets/js/_four.js'
+                    ]
+                },
+                options: {
+                    banner: '/*\n***********************\nFile Name: Two\nLast Update: <%= grunt.template.today("dd-mm-yyyy") %>\n***********************\n*/\n'
+                }
+            }
+        },
+
+        //Minificar HTML
+        htmlmin: {
+            dist: {
+                options: {
+                    removeComments: true,
+                    collapseWhitespace: true
+                },
+                files: {
+                    '<%= yeoman.app %>/index.html': '<%= yeoman.dist %>/index.html'
                 }
             }
         },
@@ -34,10 +62,10 @@ module.exports = function(grunt){
             dist: {
                 options: {
                     sassDir:         '<%= yeoman.dist %>/assets/css',
-                    cssDir:          '<%= yeoman.dist %>/assets/css',
-                    imagesDir:       '<%= yeoman.dist %>/assets/images', 
-                    fontsDir:        '<%= yeoman.dist %>/assets/fonts',
-                    javascriptsDir:  '<%= yeoman.dist %>/assets/js',
+                    cssDir:          '<%= yeoman.app %>/assets/css',
+                    imagesDir:       '<%= yeoman.app %>/assets/images', 
+                    fontsDir:        '<%= yeoman.app %>/assets/fonts',
+                    javascriptsDir:  '<%= yeoman.app %>/assets/js',
                     outputStyle:     'expanded', //compressed
                     environment:     'development', //production
                     relativeAssets:  true
@@ -54,8 +82,8 @@ module.exports = function(grunt){
                 files: [{
                     expand: true,      
                     cwd:  '<%= yeoman.dist %>/',
-                    dest: '<%= yeoman.dist %>/',
-                    src: ['**/*.png', '**/*.jpg']
+                    dest: '<%= yeoman.app %>/',
+                    src: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif']
                 }],
             }
         },
@@ -84,12 +112,11 @@ module.exports = function(grunt){
                     authKey: 'key1'
                 },
                 src: '<%= yeoman.app %>',
-                dest: '/public_html/clientes/grunt-boilerplate/',
+                dest: '/public_html/testes/grunt-boilerplate/',
                 exclusions: [
                             '<%= yeoman.dist %>/',
-                            '<%= yeoman.dist %>/**/.DS_Store',
-                            '<%= yeoman.dist %>/**/Thumbs.db',
-                            '<%= yeoman.dist %>/.sass-cache/'
+                            '<%= yeoman.app %>/**/.DS_Store',
+                            '<%= yeoman.app %>/**/Thumbs.db'
                             ]
             }
         }
@@ -98,6 +125,7 @@ module.exports = function(grunt){
  
     //Plugins do Grunt
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -107,6 +135,7 @@ module.exports = function(grunt){
     grunt.registerTask('default', 
         [
             'uglify',
+            'htmlmin',
             'compass',
             'imagemin'
         ]
