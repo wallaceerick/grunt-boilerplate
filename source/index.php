@@ -4,7 +4,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Grunt Test</title>
+		
 		<link rel="stylesheet" href="assets/css/style.css" media="all" />
+		
 	</head>
 	
 	<body>
@@ -18,15 +20,9 @@
 		
 		<footer></footer>
 		
+		<?php include('includes/include.php'); ?>
 		
-		<script src="assets/js/one-and-two.js"></script>
-		<script src="assets/js/three-and-four.js"></script>
-		<script src="http://localhost:35729/livereload.js"></script>
-		
-		<!-- build:js scripts/main.js -->
-	    <script src="bower_components/jquery/jquery.js"></script>
-	    <script src="scripts/main.js"></script>
-	    <!-- endbuild -->
+		<script src="assets/js/application.js"></script>
 		
 	</body>
 </html>

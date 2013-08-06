@@ -5,12 +5,12 @@ My personal tool to start projects with Grunt.
 ---
 
 ## Includes
-- [Uglify] (https://npmjs.org/package/grunt-contrib-uglify)
-- [Compass] (https://npmjs.org/package/grunt-contrib-compass)
-- [HTML Min] (https://npmjs.org/package/grunt-contrib-htmlmin)
-- [Image Min] (https://npmjs.org/package/grunt-contrib-imagemin)
-- [Watch] (https://npmjs.org/package/grunt-contrib-watch)
-- [FTP Deploy] (https://github.com/zonak/grunt-ftp-deploy)
+- [Uglify](https://npmjs.org/package/grunt-contrib-uglify)
+- [Compass](https://npmjs.org/package/grunt-contrib-compass)
+- [HTML Compressor](https://github.com/jney/grunt-htmlcompressor)
+- [Image Min](https://npmjs.org/package/grunt-contrib-imagemin)
+- [Watch](https://npmjs.org/package/grunt-contrib-watch)
+- [FTP Deploy](https://github.com/zonak/grunt-ftp-deploy)
 
 ## Getting Started
 
@@ -36,7 +36,7 @@ $ npm install
 
 ## Usage
 
-#### Uglify
+#### Uglify [JS Compressor]
 
 ```bash
 uglify: {
@@ -83,26 +83,34 @@ uglify: {
 compass: {
 	dist: {
 		options: {
-			sassDir: '<%= yeoman.dist %>/assets/css',
-			cssDir:  '<%= yeoman.app %>/assets/css', 
-			config:  'config.rb',
-			environment: 'development'
+                sassDir:         '<%= yeoman.dist %>/assets/css',
+                cssDir:          '<%= yeoman.app %>/assets/css',
+                imagesDir:       '<%= yeoman.dist %>/assets/images', 
+                fontsDir:        '<%= yeoman.dist %>/assets/fonts',
+                javascriptsDir:  '<%= yeoman.dist %>/assets/js',
+                outputStyle:     'expanded', //compressed
+                environment:     'development', //production
+                relativeAssets:  true
 		}
 	}
 }
 ```
 
-#### HTML Min
+#### HTML Compressor
 
 ```bash
-htmlmin: {
-	dist: {
-		options: {
-			removeComments: true,
-			collapseWhitespace: true
-		},
+htmlcompressor: {
+	compile: {
 		files: {
-			'<%= yeoman.app %>/index.html': '<%= yeoman.dist %>/index.html'
+			//Páginas
+			'<%= yeoman.app %>/index.php': '<%= yeoman.dist %>/index.php',
+
+			//Includes
+			'<%= yeoman.app %>/includes/include.php': '<%= yeoman.dist %>/includes/include.php',
+		},
+		options: {
+			type: 'html',
+			preserveServerScript: true
 		}
 	}
 }
@@ -173,6 +181,7 @@ $ grunt deploy
 ```
 
 - Save this JSON as '.ftppass' at the root
+
 ```bash
 {
 	"key1": {

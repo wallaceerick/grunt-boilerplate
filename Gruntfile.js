@@ -5,7 +5,25 @@ module.exports = function(grunt){
 
         //Pastas
         yeoman: {
-            dist: 'source'
+            dist: 'source',
+            app: 'build'
+        },
+
+        //HTML Compressor
+        htmlcompressor: {
+            compile: {
+                files: {
+                    //Páginas
+                    '<%= yeoman.app %>/index.php': '<%= yeoman.dist %>/index.php',
+
+                    //Includes
+                    '<%= yeoman.app %>/includes/include.php': '<%= yeoman.dist %>/includes/include.php',
+                },
+                options: {
+                    type: 'html',
+                    preserveServerScript: true
+                }
+            }
         },
 
         //Minficar JS
@@ -13,11 +31,11 @@ module.exports = function(grunt){
             options: {
                 mangle: false
             },
-            //Cria um Arquivo
+            //Cria o Arquivo
             one: {
                 files: {
                     //Arquivo de Destino
-                    '<%= yeoman.dist %>/assets/js/application.js': [
+                    '<%= yeoman.app %>/assets/js/application.js': [
                         //Arquivos Inclusos
                         '<%= yeoman.dist %>/assets/js/_one.js', 
                         '<%= yeoman.dist %>/assets/js/_two.js'
@@ -34,7 +52,7 @@ module.exports = function(grunt){
             dist: {
                 options: {
                     sassDir:         '<%= yeoman.dist %>/assets/css',
-                    cssDir:          '<%= yeoman.dist %>/assets/css',
+                    cssDir:          '<%= yeoman.app %>/assets/css',
                     imagesDir:       '<%= yeoman.dist %>/assets/images', 
                     fontsDir:        '<%= yeoman.dist %>/assets/fonts',
                     javascriptsDir:  '<%= yeoman.dist %>/assets/js',
@@ -54,7 +72,7 @@ module.exports = function(grunt){
                 files: [{
                     expand: true,      
                     cwd:  '<%= yeoman.dist %>/',
-                    dest: '<%= yeoman.dist %>/',
+                    dest: '<%= yeoman.app %>/',
                     src: ['**/*.png', '**/*.jpg']
                 }],
             }
@@ -102,10 +120,12 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-ftp-deploy');
+    grunt.loadNpmTasks('grunt-htmlcompressor');
 
     //Tarefas que serão Executadas
     grunt.registerTask('default', 
         [
+            'htmlcompressor',
             'uglify',
             'compass',
             'imagemin'
