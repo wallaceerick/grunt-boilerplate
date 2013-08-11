@@ -131,8 +131,8 @@ module.exports = function(grunt){
             'imagemin'
         ]
     );
-    grunt.registerTask('deploy', ['ftp-deploy']);
     grunt.registerTask('watch', ['watch']);
+    grunt.registerTask('deploy', ['ftp-deploy']);
     
 };
 
