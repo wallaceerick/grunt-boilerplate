@@ -2,7 +2,7 @@ module.exports = function(grunt){
 
     //Configuração
     grunt.initConfig({
-
+ 
         //Pastas
         yeoman: {
             dist: 'source',
