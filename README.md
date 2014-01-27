@@ -3,7 +3,7 @@
 My personal tool to start projects with Grunt.
 
 ---
-
+ 
 ## Includes
 - [Uglify](https://npmjs.org/package/grunt-contrib-uglify)
 - [Compass](https://npmjs.org/package/grunt-contrib-compass)
