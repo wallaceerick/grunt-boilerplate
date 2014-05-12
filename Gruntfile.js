@@ -1,114 +1,165 @@
 module.exports = function(grunt){
+    'use strict';
 
-    //Configuração
     grunt.initConfig({
- 
-        //Pastas
+
+        // Package
+        pkg: grunt.file.readJSON('package.json'),
+
+        // Folders
         yeoman: {
             dist: 'source',
-            app: 'build'
+            app: 'public'
         },
 
-        //HTML Compressor
-        htmlcompressor: {
-            compile: {
-                files: {
-                    //Páginas
-                    '<%= yeoman.app %>/index.php': '<%= yeoman.dist %>/index.php',
-
-                    //Includes
-                    '<%= yeoman.app %>/includes/include.php': '<%= yeoman.dist %>/includes/include.php',
-                },
-                options: {
-                    type: 'html',
-                    preserveServerScript: true
-                }
-            }
-        },
-
-        //Minficar JS
+        // JS Minifier
         uglify: {
             options: {
                 mangle: false
             },
-            //Cria o Arquivo
-            one: {
+
+            javascript: {
                 files: {
-                    //Arquivo de Destino
-                    '<%= yeoman.app %>/assets/js/application.js': [
-                        //Arquivos Inclusos
-                        '<%= yeoman.dist %>/assets/js/_one.js', 
-                        '<%= yeoman.dist %>/assets/js/_two.js'
+                    'assets/js/application.js': [
+                        'assets/js/_one.js', 
+                        'assets/js/_two.js'
                     ]
                 },
                 options: {
-                    banner: '/*\n***********************\nFile Name: One\nLast Update: <%= grunt.template.today("dd-mm-yyyy") %>\n***********************\n*/\n'
+                    banner: '/*\n***********************\n' + 
+                            'File: Application JS\n' +
+                            'Project: <%= pkg.title %>\n' +
+                            'Author: <%= pkg.author.name %> <<%= pkg.author.email %>>\n' +
+                            'Author URL: <%= pkg.author.url %>\n' +
+                            'Last Update: <%= grunt.template.today("dd-mm-yyyy") %>\n' + 
+                            '***********************\n*/\n'
                 }
             }
         },
 
-        //Compass
+        // Compass
         compass: {
-            dist: {
+            compile: {
                 options: {
-                    sassDir:         '<%= yeoman.dist %>/assets/css',
-                    cssDir:          '<%= yeoman.app %>/assets/css',
-                    imagesDir:       '<%= yeoman.dist %>/assets/images', 
-                    fontsDir:        '<%= yeoman.dist %>/assets/fonts',
-                    javascriptsDir:  '<%= yeoman.dist %>/assets/js',
-                    outputStyle:     'expanded', //compressed
-                    environment:     'development', //production
-                    relativeAssets:  true
+                    relativeAssets: true,
+                    sassDir:        'assets/css',
+                    cssDir:         'assets/css',
+                    imagesDir:      'assets/images', 
+                    fontsDir:       'assets/fonts',
+                    outputStyle:    'compressed',
+                    environment:    'production',
+                    specify:        'assets/css/application.scss',
+                    banner:         '/*\n***********************\n' + 
+                                    'File: Application CSS\n' +
+                                    'Project: <%= pkg.title %>\n' +
+                                    'Author: <%= pkg.author.name %> <<%= pkg.author.email %>>\n' +
+                                    'Author URL: <%= pkg.author.url %>\n' +
+                                    'Last Update: <%= grunt.template.today("dd-mm-yyyy") %>\n' + 
+                                    '***********************\n*/\n'
                 }
             }
         },
 
-        //Minificar Imagens
+        // Image Minifier
         imagemin: {
-            dist: {
+            png: {
                 options: {
-                    optimizationLevel: 3
+                    optimizationLevel: 4,
+                    pngquant: true
                 },
                 files: [{
-                    expand: true,      
-                    cwd:  '<%= yeoman.dist %>/',
-                    dest: '<%= yeoman.app %>/',
-                    src: ['**/*.png', '**/*.jpg']
-                }],
+                    expand: true,
+                    cwd:  'assets/images/',
+                    dest: 'assets/images/compressed',
+                    src:  ['*.{png,jpg,gif}'] 
+                }]
             }
         },
 
-        //Watch
+        // Sprite Generator 
+        sprite: {
+            all: {
+                padding:    5,
+                algorithm:  'binary-tree',
+                src:        'assets/images/sprites/*.png',
+                destImg:    'assets/images/sprite.png',
+                destCSS:    'assets/css/modules/_sprite.scss',
+                cssFormat:  'css',
+                imgPath:    '../images/sprite.png',
+                cssClass: function (sprite){
+                    sprite.name = 'sprite-' + sprite.name;
+                },
+            }
+        },
+
+        // Watch
         watch: {
             options: {
-                livereload: true,
+                livereload: false,
             },
-            dist: {
-                files: [
-                    '<%= yeoman.dist %>/assets/css/**/*.scss',
-                    '<%= yeoman.dist %>/assets/js/*',
-                    '<%= yeoman.dist %>/*'
-                ],
-                tasks: ['uglify', 'htmlmin', 'compass']
+            styles: {
+                files: ['assets/css/{,*/}*.scss'],
+                tasks: ['compass']
+            },
+            javascripts: {
+                files: ['assets/js/*.js'],
+                tasks: ['uglify']
+            },
+            html: {
+                files: ['**/*.php']
             }
         },
 
-        //Deploy
+        // Deploy
         'ftp-deploy': {
             build: {
                 auth: {
                     host: 'ftp.wallaceerick.com.br',
                     port: 21,
-                    authKey: 'key1'
+                    authKey: 'connection'
                 },
                 src: '<%= yeoman.app %>',
                 dest: '/public_html/clientes/grunt-boilerplate/',
                 exclusions: [
-                            '<%= yeoman.dist %>/',
-                            '<%= yeoman.dist %>/**/.DS_Store',
-                            '<%= yeoman.dist %>/**/Thumbs.db',
-                            '<%= yeoman.dist %>/.sass-cache/'
-                            ]
+                            '**/.DS_Store',
+                            '**/Thumbs.db',
+                            '.sass-cache/'
+                ]
+            }
+        },
+
+        // Replace Files
+        replace: {
+            dist: {
+                options: {
+                    patterns: [
+                        {
+                            match: 'hash',
+                            replacement: '<%= (new Date()).valueOf().toString() %>'
+                        }
+                    ]
+                },
+ 
+                files: [
+                    {
+                        expand: true, 
+                        flatten: true, 
+                        src: ['*.php'], 
+                        dest: '<%= yeoman.app %>/'
+                    },
+                    {
+                        expand: true,
+                        flatten: true, 
+                        src: ['assets/js/application.js'], 
+                        dest: 'assets/js/'
+                    },
+                    {
+                        expand: true,
+                        flatten: true, 
+                        src: ['assets/css/application.css'], 
+                        dest: 'assets/css/'
+                    }
+                ]
             }
         }
 
@@ -118,21 +169,23 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-spritesmith');
     grunt.loadNpmTasks('grunt-ftp-deploy');
-    grunt.loadNpmTasks('grunt-htmlcompressor');
 
     //Tarefas que serão Executadas
     grunt.registerTask('default', 
         [
-            'htmlcompressor',
             'uglify',
-            'compass',
-            'imagemin'
+            'compass'
         ]
     );
-    grunt.registerTask('watch', ['watch']);
-    grunt.registerTask('deploy', ['ftp-deploy']);
+    grunt.registerTask('s', ['sprite']);
+    grunt.registerTask('i', ['imagemin']);
+    grunt.registerTask('h', ['htmlmin']);
+    grunt.registerTask('d', ['ftp-deploy']);
+    grunt.registerTask('r', ['replace']);
+    grunt.registerTask('w', ['watch']);
     
 };
-
