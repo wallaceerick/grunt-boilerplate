@@ -5,7 +5,7 @@
 		<meta charset="UTF-8">
 		<title>Grunt Test</title> 
 		
-		<link rel="stylesheet" href="assets/css/application.css" media="all" />
+		<link rel="stylesheet" href="assets/css/application.css?version?@@version" media="all" />
 		   
 	</head> 
 	
@@ -23,7 +23,7 @@
 		
 		<footer></footer>
 		 
-		<script src="assets/js/application.js"></script>
+		<script src="assets/js/application.js?version?@@version"></script>
 		<script src="http://localhost:35729/livereload.js"></script>
 		
 	</body>

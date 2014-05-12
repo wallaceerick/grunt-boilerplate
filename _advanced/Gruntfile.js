@@ -20,9 +20,9 @@ module.exports = function(grunt){
 
             javascript: {
                 files: {
-                    'assets/js/application.js': [
-                        'assets/js/_one.js', 
-                        'assets/js/_two.js'
+                    '<%= yeoman.app %>/assets/js/application.js': [
+                        '<%= yeoman.dist %>/assets/js/_one.js', 
+                        '<%= yeoman.dist %>/assets/js/_two.js'
                     ]
                 },
                 options: {
@@ -42,13 +42,13 @@ module.exports = function(grunt){
             compile: {
                 options: {
                     relativeAssets: true,
-                    sassDir:        'assets/css',
-                    cssDir:         'assets/css',
-                    imagesDir:      'assets/images', 
-                    fontsDir:       'assets/fonts',
+                    sassDir:        '<%= yeoman.dist %>/assets/css',
+                    cssDir:         '<%= yeoman.app %>/assets/css',
+                    imagesDir:      '<%= yeoman.dist %>/assets/images', 
+                    fontsDir:       '<%= yeoman.dist %>/assets/fonts',
                     outputStyle:    'compressed',
                     environment:    'production',
-                    specify:        'assets/css/application.scss',
+                    specify:        '<%= yeoman.dist %>/assets/css/application.scss',
                     banner:         '/*\n***********************\n' + 
                                     'File: Application CSS\n' +
                                     'Project: <%= pkg.title %>\n' +
@@ -69,8 +69,8 @@ module.exports = function(grunt){
                 },
                 files: [{
                     expand: true,
-                    cwd:  'assets/images/',
-                    dest: 'assets/images/compressed',
+                    cwd:  '<%= yeoman.dist %>/assets/images/',
+                    dest: '<%= yeoman.app %>/assets/images/',
                     src:  ['*.{png,jpg,gif}'] 
                 }]
             }
@@ -81,9 +81,9 @@ module.exports = function(grunt){
             all: {
                 padding:    5,
                 algorithm:  'binary-tree',
-                src:        'assets/images/sprites/*.png',
-                destImg:    'assets/images/sprite.png',
-                destCSS:    'assets/css/modules/_sprite.scss',
+                src:        '<%= yeoman.dist %>/assets/images/sprites/*.png',
+                destImg:    '<%= yeoman.app %>/assets/images/sprite.png',
+                destCSS:    '<%= yeoman.dist %>/assets/css/modules/_sprite.scss',
                 cssFormat:  'css',
                 imgPath:    '../images/sprite.png',
                 cssClass: function (sprite){
@@ -97,16 +97,11 @@ module.exports = function(grunt){
             options: {
                 livereload: false,
             },
-            styles: {
-                files: ['assets/css/{,*/}*.scss'],
-                tasks: ['compass']
-            },
-            javascripts: {
-                files: ['assets/js/*.js'],
-                tasks: ['uglify']
-            },
-            html: {
-                files: ['**/*.php']
+            dist: {
+                files: [
+                    '<%= yeoman.app %>/*'
+                ],
+                tasks: ['uglify', 'compass']
             }
         },
 
@@ -119,11 +114,32 @@ module.exports = function(grunt){
                     authKey: 'connection'
                 },
                 src: '<%= yeoman.app %>',
-                dest: '/public_html/clientes/grunt-boilerplate/',
+                dest: '/public_html/clientes/grunt-boilerplate/advanced',
                 exclusions: [
-                            '**/.DS_Store',
-                            '**/Thumbs.db',
-                            '.sass-cache/'
+                            // Useless Files
+                            './node_modules',
+                            './.sass-cache',
+                            './**/.DS_Store',
+                            './README.md',
+                            './Gruntfile.js',
+                            './Config.rb',
+                            './package.json',
+                            './.ftppass',
+                            './.gitignore',
+                            './.git',
+
+                            // CSS
+                            './assets/css/mixins/*',
+                            './assets/css/modules/*',
+                            './assets/css/partials/*',
+                            './assets/css/application.scss',
+
+                            // JS
+                            './assets/js/_one.js',
+                            './assets/js/_two.js',
+
+                            // Images
+                            './assets/images/sprites'
                 ]
             }
         },
