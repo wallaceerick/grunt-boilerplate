@@ -1,0 +1,50 @@
+// Helpers
+
+.row {
+	display: inline-block;
+	position: relative;
+}
+
+.clear {
+	display: block;
+	clear: both;
+}
+
+.hide-text {
+	display: block;
+	text-indent: -9999px;
+}
+
+.block {
+	display: block;
+}
+
+.none {
+	display: none;
+}
+
+.centered {
+	margin: 0 auto;
+}
+
+.float-left {
+	float: left;
+}
+
+.float-right {
+	float: right;
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+
+.lowercase {
+	text-transform: lowercase;
+}
+
+.column-half {
+	position: relative;
+	width: 50%;
+	display: inline-block;
+}

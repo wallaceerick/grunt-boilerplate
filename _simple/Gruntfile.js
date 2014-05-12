@@ -6,19 +6,12 @@ module.exports = function(grunt){
         // Package
         pkg: grunt.file.readJSON('package.json'),
 
-        // Folders
-        yeoman: {
-            dist: 'source',
-            app: 'public'
-        },
-
         // JS Minifier
         uglify: {
             options: {
                 mangle: false
             },
-
-            javascript: {
+            dist: {
                 files: {
                     'assets/js/application.js': [
                         'assets/js/_one.js', 
@@ -39,7 +32,7 @@ module.exports = function(grunt){
 
         // Compass
         compass: {
-            compile: {
+            dist: {
                 options: {
                     relativeAssets: true,
                     sassDir:        'assets/css',
@@ -62,7 +55,7 @@ module.exports = function(grunt){
 
         // Image Minifier
         imagemin: {
-            png: {
+            dist: {
                 options: {
                     optimizationLevel: 4,
                     pngquant: true
@@ -92,21 +85,19 @@ module.exports = function(grunt){
             }
         },
 
-        // Watch
+        // Watch Files
         watch: {
             options: {
                 livereload: false,
             },
-            styles: {
-                files: ['assets/css/{,*/}*.scss'],
+            dist: {
+                files: [
+                    //'assets/js/*',
+                    '*.php',
+                    'assets/css/**/*.scss'
+                ],
+                //tasks: ['uglify', 'compass', 'sprite']
                 tasks: ['compass']
-            },
-            javascripts: {
-                files: ['assets/js/*.js'],
-                tasks: ['uglify']
-            },
-            html: {
-                files: ['**/*.php']
             }
         },
 
@@ -121,71 +112,54 @@ module.exports = function(grunt){
                 src: '<%= yeoman.app %>',
                 dest: '/public_html/clientes/grunt-boilerplate/',
                 exclusions: [
-                            '**/.DS_Store',
-                            '**/Thumbs.db',
-                            '.sass-cache/'
-                ]
-            }
-        },
+                            // Useless Files
+                            'node_modules',
+                            '.sass-cache',
+                            '.DS_Store',
+                            'README.md',
+                            'Gruntfile.js',
+                            'Config.rb',
+                            'package.json',
+                            '.ftppass',
+                            '.gitignore',
+                            '.git',
 
-        // Replace Files
-        replace: {
-            dist: {
-                options: {
-                    patterns: [
-                        {
-                            match: 'hash',
-                            replacement: '<%= (new Date()).valueOf().toString() %>'
-                        }
-                    ]
-                },
- 
-                files: [
-                    {
-                        expand: true, 
-                        flatten: true, 
-                        src: ['*.php'], 
-                        dest: '<%= yeoman.app %>/'
-                    },
-                    {
-                        expand: true,
-                        flatten: true, 
-                        src: ['assets/js/application.js'], 
-                        dest: 'assets/js/'
-                    },
-                    {
-                        expand: true,
-                        flatten: true, 
-                        src: ['assets/css/application.css'], 
-                        dest: 'assets/css/'
-                    }
+                            // CSS
+                            'assets/css/modules',
+                            'assets/css/modules/*.scss',
+                            'assets/css/application.scss',
+
+                            // JS
+                            'assets/js/_one.js',
+                            'assets/js/_two.js',
+
+                            // Images
+                            'assets/images/sprites'
                 ]
             }
         }
 
     });
  
-    //Plugins do Grunt
+    // Plugins
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
-    grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-spritesmith');
     grunt.loadNpmTasks('grunt-ftp-deploy');
 
-    //Tarefas que serão Executadas
+    // Taks
     grunt.registerTask('default', 
         [
             'uglify',
-            'compass'
+            'compass',
+            'sprite'
         ]
     );
     grunt.registerTask('s', ['sprite']);
     grunt.registerTask('i', ['imagemin']);
-    grunt.registerTask('h', ['htmlmin']);
     grunt.registerTask('d', ['ftp-deploy']);
-    grunt.registerTask('r', ['replace']);
     grunt.registerTask('w', ['watch']);
     
 };
