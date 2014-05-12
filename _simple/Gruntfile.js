@@ -109,32 +109,33 @@ module.exports = function(grunt){
                     port: 21,
                     authKey: 'connection'
                 },
-                src: '<%= yeoman.app %>',
-                dest: '/public_html/clientes/grunt-boilerplate/',
+                src: './',
+                dest: '/public_html/clientes/grunt-boilerplate/simple',
                 exclusions: [
                             // Useless Files
-                            'node_modules',
-                            '.sass-cache',
-                            '.DS_Store',
-                            'README.md',
-                            'Gruntfile.js',
-                            'Config.rb',
-                            'package.json',
-                            '.ftppass',
-                            '.gitignore',
-                            '.git',
+                            './node_modules',
+                            './.sass-cache',
+                            './**/.DS_Store',
+                            './README.md',
+                            './Gruntfile.js',
+                            './Config.rb',
+                            './package.json',
+                            './.ftppass',
+                            './.gitignore',
+                            './.git',
 
                             // CSS
-                            'assets/css/modules',
-                            'assets/css/modules/*.scss',
-                            'assets/css/application.scss',
+                            './assets/css/mixins/*',
+                            './assets/css/modules/*',
+                            './assets/css/partials/*',
+                            './assets/css/application.scss',
 
                             // JS
-                            'assets/js/_one.js',
-                            'assets/js/_two.js',
+                            './assets/js/_one.js',
+                            './assets/js/_two.js',
 
                             // Images
-                            'assets/images/sprites'
+                            './assets/images/sprites'
                 ]
             }
         }
