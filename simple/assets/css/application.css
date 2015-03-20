@@ -1,0 +1,11 @@
+/*
+***********************
+File: Application CSS
+Project: Grunt Boilerplate | Simple
+Author: Wallace Erick <wallace_erick@hotmail.com>
+Author URL: http://wallaceerick.com.br
+Last Update: 20-03-2015
+***********************
+*/
+
+*{margin:0;padding:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}body{overflow:hidden;margin:200px 0}.row{display:inline-block;position:relative}.clear{display:block;clear:both}.hide-text{display:block;text-indent:-9999px}.block{display:block}.none{display:none}.centered{margin:0 auto}.float-left{float:left}.float-right{float:right}.uppercase{text-transform:uppercase}.lowercase{text-transform:lowercase}.column-half{position:relative;width:50%;display:inline-block}section{width:800px;padding:100px;margin:0 auto;background:blue}section p{font-size:15px}header{width:100%;height:200px;position:absolute;top:0;left:0;background:#ccc}footer{width:100%;height:200px;position:absolute;bottom:0;left:0;background:#B1B1B1}.icon-grunt{background-image:url(../images/sprite.png);background-position:0px 0px;width:360px;height:424px}.icon-sass{background-image:url(../images/sprite.png);background-position:-365px 0px;width:512px;height:384px}
