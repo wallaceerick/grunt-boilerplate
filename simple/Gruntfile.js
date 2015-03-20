@@ -57,12 +57,12 @@ module.exports = function(grunt){
         imagemin: {
             dist: {
                 options: {
-                    optimizationLevel: 4,
+                    optimizationLevel: 7,
                     pngquant: true
                 },
                 files: [{
                     expand: true,
-                    cwd:  'assets/images/',
+                    cwd:  'assets/images/hd',
                     dest: 'assets/images/compressed',
                     src:  ['*.{png,jpg,gif}'] 
                 }]
@@ -112,7 +112,7 @@ module.exports = function(grunt){
                     authKey: 'connection'
                 },
                 src: './',
-                dest: '/public_html/clientes/grunt-boilerplate/simple',
+                dest: 'public_html/clientes/grunt-boilerplate',
                 exclusions: [
                             // Useless Files
                             './node_modules',
@@ -127,9 +127,7 @@ module.exports = function(grunt){
                             './.git',
 
                             // CSS
-                            './assets/css/mixins/*',
-                            './assets/css/modules/*',
-                            './assets/css/partials/*',
+                            './assets/css/modules',
                             './assets/css/application.scss',
 
                             // JS
@@ -151,18 +149,17 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-spritesmith');
     grunt.loadNpmTasks('grunt-ftp-deploy');
+    grunt.loadNpmTasks('grunt-menu');
+
 
     // Taks
-    grunt.registerTask('default', 
-        [
-            'uglify',
-            'compass',
-            'sprite'
-        ]
-    );
-    grunt.registerTask('s', ['sprite']);
-    grunt.registerTask('i', ['imagemin']);
-    grunt.registerTask('d', ['ftp-deploy']);
-    grunt.registerTask('w', ['watch']);
+    grunt.registerTask('default', ['menu']);
+
+    grunt.registerTask('Uglify JS', ['uglify']);
+    grunt.registerTask('Compass CSS', ['compass']);
+    grunt.registerTask('Sprite Generator', ['sprite']);
+    grunt.registerTask('Image Compressor', ['imagemin']);
+    grunt.registerTask('Deploy', ['ftp-deploy']);
+    grunt.registerTask('Watch', ['watch']);
     
 };
