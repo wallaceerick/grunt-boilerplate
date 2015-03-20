@@ -11,6 +11,7 @@ My personal tool to start projects with Grunt.
 - [Image Min](https://npmjs.org/package/grunt-contrib-imagemin)
 - [Watch](https://npmjs.org/package/grunt-contrib-watch)
 - [FTP Deploy](https://github.com/zonak/grunt-ftp-deploy)
+- [Menu](https://github.com/ruyadorno/grunt-menu)
 
 ## Getting Started
 
@@ -36,7 +37,7 @@ $ npm install
 
 ## Usage
 
-#### Uglify [JS Compressor]
+#### Uglify 
 
 ```bash
 uglify: {
